@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="An interactive mutual fund learning lab for Indian commerce classrooms.">
+<title>The Mutual Fund Classroom Lab</title>
+<style>
+:root{--ink:#17243a;--muted:#627086;--line:#dce4ee;--paper:#f5f8fc;--white:#fff;--navy:#142b4a;--blue:#2463eb;--teal:#087f8c;--gold:#e8a23a;--red:#b54747;--green:#19734b;--shadow:0 12px 30px rgba(22,43,74,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(120deg,#142b4a,#205b78);color:white;padding:36px 22px 30px}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.76rem;font-weight:800;color:#b9d7ee}
+h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;margin:10px 0}
+header p{max-width:760px;color:#e0edf6;margin:12px 0 0;font-size:1.06rem}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.pill{border:1px solid #ffffff55;border-radius:99px;padding:5px 11px;font-size:.82rem}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);overflow:auto}
+.navinner{max-width:1120px;margin:auto;display:flex;gap:5px;padding:9px 20px;white-space:nowrap}
+nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:9px;font-size:.9rem;font-weight:650}
+nav a:hover{background:#edf3fb;color:var(--navy)}
+main{max-width:1120px;margin:26px auto;padding:0 20px}
+section{scroll-margin-top:75px;margin:0 0 25px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+h2{font-size:1.55rem;margin:0 0 8px;color:var(--navy)}h3{font-size:1.08rem;margin:0 0 8px;color:var(--navy)}
+.lead{color:var(--muted);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}
+.card p{margin:5px 0 0;color:var(--muted);font-size:.94rem}
+.tag{display:inline-block;font-size:.75rem;font-weight:750;color:#155e75;background:#e7f6f8;border-radius:99px;padding:3px 8px;margin-bottom:8px}
+label{display:block;font-weight:700;font-size:.9rem;margin:12px 0 5px}
+input,select{width:100%;padding:11px 12px;border:1px solid #cbd6e3;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+input[type=range]{padding:0;accent-color:var(--blue)}
+button{border:0;border-radius:10px;padding:11px 16px;background:var(--blue);color:white;font-weight:750;font:inherit;cursor:pointer}
+button.secondary{background:#edf3fb;color:var(--navy)}button:hover{filter:brightness(.96)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.statgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+.stat{background:#f1f6fc;border-radius:12px;padding:14px}
+.stat small{display:block;color:var(--muted);font-weight:650}.stat strong{display:block;font-size:1.35rem;color:var(--navy);margin-top:3px}
+.note{border-left:4px solid var(--gold);background:#fff8eb;padding:12px 15px;border-radius:0 10px 10px 0;color:#5e4a2a;margin:14px 0}
+.good{border-left-color:var(--green);background:#edf8f1;color:#245b3d}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--navy);background:#f4f7fb}
+canvas{width:100%;height:260px;display:block;border:1px solid var(--line);border-radius:12px;background:#fff}
+.allocrow{display:grid;grid-template-columns:1fr 90px;gap:12px;align-items:center;margin:12px 0}
+.quizq{padding:15px;border:1px solid var(--line);border-radius:12px;margin:12px 0}
+.quizq label{font-weight:500;display:flex;gap:9px;align-items:flex-start;margin:8px 0}
+.quizq input{width:auto;margin-top:5px}
+.feedback{font-weight:700;margin-top:8px}.hidden{display:none}
+footer{background:#142b4a;color:#dce8f3;padding:28px 20px;margin-top:40px}footer .wrap{font-size:.9rem}
+.small{font-size:.86rem;color:var(--muted)}
+@media(max-width:760px){.grid,.cards{grid-template-columns:1fr}.statgrid{grid-template-columns:1fr}.panel{padding:18px}.wrap,main{padding-left:14px;padding-right:14px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <div class="eyebrow">Open educational resource · Commerce & financial literacy</div>
+  <h1>The Mutual Fund<br>Classroom Lab</h1>
+  <p>Learn by doing: compare fund categories, build a hypothetical portfolio, explore the power of time, and test your investment understanding.</p>
+  <div class="meta"><span class="pill">B.Com / M.Com</span><span class="pill">60–90 minutes</span><span class="pill">Interactive simulation</span><span class="pill">India-focused examples</span></div>
+ </div>
+</header>
+<nav><div class="navinner">
+ <a href="#learn">Learn</a><a href="#compare">Compare</a><a href="#simulator">Invest & simulate</a><a href="#quiz">Knowledge check</a><a href="#teacher">Teacher guide</a>
+</div></nav>
+<main>
+<section id="learn" class="panel">
+ <h2>1. Start with the essentials</h2><p class="lead">A mutual fund pools money from many investors and invests it according to a stated investment objective.</p>
+ <div class="cards">
+  <article class="card"><span class="tag">Core concept</span><h3>NAV</h3><p>Net Asset Value is the per-unit value of a mutual fund scheme's net assets. It is not, by itself, a measure of whether a fund is cheap or expensive.</p></article>
+  <article class="card"><span class="tag">Investment method</span><h3>SIP</h3><p>A Systematic Investment Plan invests a fixed amount at regular intervals. It is a method of investing, not a separate type of mutual fund.</p></article>
+  <article class="card"><span class="tag">Cost</span><h3>Expense ratio</h3><p>The annual recurring cost charged by a scheme, expressed as a percentage of assets. Costs reduce the investor's net return.</p></article>
+  <article class="card"><span class="tag">Risk</span><h3>Volatility</h3><p>The extent to which an investment's value fluctuates. Higher expected return is not guaranteed and may involve higher risk.</p></article>
+  <article class="card"><span class="tag">Portfolio</span><h3>Diversification</h3><p>Spreading money across different assets or categories can reduce concentration risk, but cannot eliminate investment risk.</p></article>
+  <article class="card"><span class="tag">Investor behaviour</span><h3>Time horizon</h3><p>The period an investor expects to remain invested. Goals and time horizon should inform risk capacity and asset allocation.</p></article>
+ </div>
+ <div class="note"><strong>Remember:</strong> Mutual fund investments are subject to market risks. Read all scheme-related documents carefully. Past performance does not guarantee future returns.</div>
+</section>
+
+<section id="compare" class="panel">
+ <h2>2. Compare three fund categories</h2><p class="lead">These are simplified teaching descriptions, not live schemes or product recommendations.</p>
+ <div class="cards">
+  <article class="card"><span class="tag">Growth-oriented</span><h3>Equity funds</h3><p>Primarily invest in shares. Values can fluctuate significantly. Usually discussed for longer investment horizons, depending on the investor's risk profile.</p></article>
+  <article class="card"><span class="tag">Debt-oriented</span><h3>Debt funds</h3><p>Invest mainly in fixed-income instruments. They carry risks including interest-rate and credit risk; they are not risk-free or guaranteed.</p></article>
+  <article class="card"><span class="tag">Mixed allocation</span><h3>Hybrid funds</h3><p>Combine equity and debt in varying proportions. Risk depends on the scheme's actual asset allocation and strategy.</p></article>
+ </div>
+ <table><thead><tr><th>Question</th><th>Equity</th><th>Debt</th><th>Hybrid</th></tr></thead><tbody>
+ <tr><td>Typical main exposure</td><td>Shares</td><td>Debt instruments</td><td>Combination</td></tr>
+ <tr><td>Can value fall?</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+ <tr><td>What should be checked?</td><td>Market and concentration risk</td><td>Credit and interest-rate risk</td><td>Allocation and underlying risks</td></tr>
+ <tr><td>Useful learning question</td><td>Can I tolerate volatility?</td><td>What risks affect bond prices?</td><td>How does the mix change risk?</td></tr>
+ </tbody></table>
+</section>
+
+<section id="simulator" class="panel">
+ <h2>3. Build a hypothetical portfolio</h2><p class="lead">You are given a classroom case: allocate ₹1,00,000 across three broad fund categories. There is no single correct allocation; justify your choices against the investor profile.</p>
+ <div class="grid">
+  <div>
+   <h3>Investor profile</h3>
+   <p class="small">Aarav is 28, has a long-term goal, stable income and says he can tolerate moderate fluctuations. This profile is fictional.</p>
+   <label for="goal">Primary goal</label><select id="goal"><option>Long-term wealth creation</option><option>Medium-term goal</option><option>Capital preservation focus</option></select>
+   <label for="risk">Risk comfort: <strong id="riskLabel">Moderate</strong></label><input id="risk" type="range" min="1" max="5" value="3">
+   <div class="small">1 = Very low comfort · 5 = High comfort</div>
+   <h3 style="margin-top:20px">Your allocation</h3>
+   <div class="allocrow"><div><label for="eq">Equity (%)</label><input id="eq" type="range" min="0" max="100" value="50"></div><input id="eqNum" type="number" min="0" max="100" value="50" aria-label="Equity allocation percentage"></div>
+   <div class="allocrow"><div><label for="debt">Debt (%)</label><input id="debt" type="range" min="0" max="100" value="30"></div><input id="debtNum" type="number" min="0" max="100" value="30" aria-label="Debt allocation percentage"></div>
+   <div class="allocrow"><div><label for="hyb">Hybrid (%)</label><input id="hyb" type="range" min="0" max="100" value="20"></div><input id="hybNum" type="number" min="0" max="100" value="20" aria-label="Hybrid allocation percentage"></div>
+   <p id="allocStatus" class="note good" aria-live="polite">Allocation totals 100%.</p>
+   <button id="suggest" class="secondary" type="button">Load a sample moderate allocation</button>
+  </div>
+  <div>
+   <h3>Investment assumptions</h3>
+   <label for="lump">Initial investment (₹)</label><input id="lump" type="number" min="0" step="1000" value="100000">
+   <label for="sip">Monthly SIP (₹)</label><input id="sip" type="number" min="0" step="500" value="2000">
+   <label for="years">Investment period: <strong id="yearsLabel">10 years</strong></label><input id="years" type="range" min="1" max="30" value="10">
+   <label for="er">Illustrative annual expense assumption (%)</label><input id="er" type="number" min="0" max="5" step=".1" value="0.5">
+   <div class="note">The simulator uses constant assumed annual returns for illustration. Real market returns vary, may be negative, and do not arrive in a straight line.</div>
+   <div class="actions"><button id="calculate" type="button">Run simulation</button><button id="reset" class="secondary" type="button">Reset</button></div>
+  </div>
+ </div>
+ <div id="results" class="hidden" aria-live="polite">
+  <div class="statgrid">
+   <div class="stat"><small>Illustrative ending value</small><strong id="ending">₹—</strong></div>
+   <div class="stat"><small>Total amount invested</small><strong id="invested">₹—</strong></div>
+   <div class="stat"><small>Illustrative gain / loss</small><strong id="gain">₹—</strong></div>
+  </div>
+  <h3>Return scenario comparison</h3>
+  <p class="small">Illustrative annual gross return assumptions: Equity 10%, Debt 6%, Hybrid 8%. The expense assumption is deducted from each category's assumed annual return. These rates are not forecasts.</p>
+  <canvas id="chart" width="900" height="300" role="img" aria-label="Bar chart comparing illustrative ending portfolio values in three return scenarios"></canvas>
+  <table><thead><tr><th>Scenario</th><th>Assumed annual gross return</th><th>Illustrative ending value</th></tr></thead><tbody id="scenarioRows"></tbody></table>
+  <p class="small" id="method"></p>
+ </div>
+</section>
+
+<section id="quiz" class="panel">
+ <h2>4. Check your understanding</h2><p class="lead">Answer all five questions. Select “Check answers” to receive instant feedback.</p>
+ <form id="quizForm">
+  <div class="quizq"><strong>Q1. What does NAV represent?</strong>
+   <label><input type="radio" name="q1" value="a"> The guaranteed return of a scheme</label><label><input type="radio" name="q1" value="b"> Per-unit value of the scheme's net assets</label><label><input type="radio" name="q1" value="c"> The expense ratio</label><div class="feedback" id="f1"></div></div>
+  <div class="quizq"><strong>Q2. SIP is best described as:</strong>
+   <label><input type="radio" name="q2" value="a"> A method of investing at regular intervals</label><label><input type="radio" name="q2" value="b"> A guaranteed-return product</label><label><input type="radio" name="q2" value="c"> A type of equity share</label><div class="feedback" id="f2"></div></div>
+  <div class="quizq"><strong>Q3. Which statement about debt funds is correct?</strong>
+   <label><input type="radio" name="q3" value="a"> They cannot lose value</label><label><input type="radio" name="q3" value="b"> They always provide fixed returns</label><label><input type="radio" name="q3" value="c"> They can carry credit and interest-rate risks</label><div class="feedback" id="f3"></div></div>
+  <div class="quizq"><strong>Q4. Diversification:</strong>
+   <label><input type="radio" name="q4" value="a"> Guarantees profit</label><label><input type="radio" name="q4" value="b"> Can reduce concentration risk but cannot eliminate all risk</label><label><input type="radio" name="q4" value="c"> Removes the need to understand investments</label><div class="feedback" id="f4"></div></div>
+  <div class="quizq"><strong>Q5. Past performance:</strong>
+   <label><input type="radio" name="q5" value="a"> Guarantees future returns</label><label><input type="radio" name="q5" value="b"> Is the only factor to consider</label><label><input type="radio" name="q5" value="c"> Does not guarantee future performance</label><div class="feedback" id="f5"></div></div>
+  <button type="submit">Check answers</button><button type="button" class="secondary" id="clearQuiz">Clear responses</button>
+  <p id="score" class="lead" aria-live="polite"></p>
+ </form>
+</section>
+
+<section id="teacher" class="panel">
+ <h2>5. Teacher guide</h2><p class="lead">A ready-to-use 60–90 minute classroom sequence.</p>
+ <table><thead><tr><th>Time</th><th>Teacher action</th><th>Student evidence of learning</th></tr></thead><tbody>
+ <tr><td>10 min</td><td>Ask: “Is a mutual fund the same as a bank deposit?” Elicit prior knowledge.</td><td>Students distinguish market-linked investments from deposits.</td></tr>
+ <tr><td>15 min</td><td>Explain NAV, SIP, expense ratio, diversification and risk.</td><td>Students explain key terms in their own words.</td></tr>
+ <tr><td>20 min</td><td>Introduce Aarav's fictional profile; students allocate the ₹1,00,000.</td><td>Students justify asset allocation using goal and risk comfort.</td></tr>
+ <tr><td>15 min</td><td>Change time horizon and assumptions; discuss why outcomes change.</td><td>Students interpret scenarios and identify model limitations.</td></tr>
+ <tr><td>10 min</td><td>Run the quiz and discuss misconceptions.</td><td>Quiz responses and corrected explanations.</td></tr>
+ <tr><td>10–20 min</td><td>Ask groups to present one portfolio decision and one risk they considered.</td><td>Short group justification / exit ticket.</td></tr>
+ </tbody></table>
+ <h3>Learning outcomes</h3>
+ <ul><li>Define NAV, SIP and expense ratio.</li><li>Differentiate equity, debt and hybrid fund categories at an introductory level.</li><li>Construct and justify a hypothetical allocation that totals 100%.</li><li>Explain why assumed returns are not guarantees and identify key model limitations.</li></ul>
+ <h3>Discussion prompts</h3>
+ <ol><li>Would a 25-year-old and a person retiring next year necessarily choose the same allocation? Why?</li><li>Why is a higher NAV not automatically evidence that a fund is expensive?</li><li>How might expense ratios affect long-term outcomes?</li><li>What information would you need before making a real investment decision?</li></ol>
+ <div class="note good"><strong>Assessment idea:</strong> Ask students to submit a 150-word rationale for their allocation, including goal, time horizon, risk comfort, diversification and one limitation of the simulation.</div>
+ <h3>Accessibility and reuse</h3>
+ <p class="small">The page is responsive, keyboard-friendly, uses plain HTML/CSS/JavaScript and requires no account, API key or external library. Teachers may adapt the fictional case, language, amounts and questions for their learners.</p>
+ <h3>Source and safety note</h3>
+ <p class="small">This resource is an introductory teaching aid, not investment advice. For current investor education and scheme information, consult SEBI and AMFI materials and the relevant scheme documents. Verify current regulations and product details before teaching them as current facts.</p>
+</section>
+</main>
+<footer><div class="wrap"><strong>The Mutual Fund Classroom Lab</strong><br>Open classroom resource · Built for learning, discussion and adaptation.<br><span class="small" style="color:#c4d4e4">No personal data is collected. All examples and return assumptions are hypothetical.</span></div></footer>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
+const ranges=['eq','debt','hyb'];
+function setAlloc(source,target){$(target).value=$(source).value;updateAlloc()}
+function updateAlloc(){
+ const sum=ranges.reduce((s,id)=>s+Number($(id).value||0),0);
+ $('allocStatus').textContent=sum===100?'Allocation totals 100%.':`Allocation totals ${sum}%. Adjust the percentages to total exactly 100%.`;
+ $('allocStatus').className=sum===100?'note good':'note';
+}
+ranges.forEach(id=>{$(id).addEventListener('input',()=>{const n=Number($(id).value);$(id+'Num').value=n;updateAlloc()});$(id+'Num').addEventListener('input',()=>{let n=Math.max(0,Math.min(100,Number($(id+'Num').value)||0));$(id).value=n;updateAlloc()})});
+$('risk').addEventListener('input',()=>{$('riskLabel').textContent=['Very low','Low','Moderate','High','Very high'][$('risk').value-1]});
+$('years').addEventListener('input',()=>{$('yearsLabel').textContent=$('years').value+' years'});
+$('suggest').addEventListener('click',()=>{[['eq',50],['debt',30],['hyb',20]].forEach(([id,v])=>{$(id).value=v;$(id+'Num').value=v});updateAlloc()});
+function valueFor(gross,expense,lump,sip,years){
+ const r=(gross-expense)/100/12, months=years*12;
+ const fvL=lump*Math.pow(1+r,months);
+ const fvS=r===0?sip*months:sip*((Math.pow(1+r,months)-1)/r);
+ return fvL+fvS;
+}
+function run(){
+ const allocation=ranges.map(id=>Number($(id).value));
+ if(allocation.reduce((a,b)=>a+b,0)!==100){alert('Please make the allocation total exactly 100%.');return}
+ const lump=Math.max(0,Number($('lump').value)||0),sip=Math.max(0,Number($('sip').value)||0),years=Math.max(1,Number($('years').value)||1),expense=Math.max(0,Number($('er').value)||0);
+ const rates=[{name:'Conservative illustration',r:[6,5,5.5]},{name:'Moderate illustration',r:[10,6,8]},{name:'Higher-return illustration',r:[13,7,10]}];
+ const results=rates.map(s=>{
+  const total=s.r.reduce((sum,rate,i)=>sum+valueFor(rate,expense,lump*allocation[i]/100,sip*allocation[i]/100,years),0);
+  const invested=lump+sip*years*12;
+  return {...s,total,invested};
+ });
+ const selected=results[1];
+ $('ending').textContent=fmt(selected.total);$('invested').textContent=fmt(selected.invested);$('gain').textContent=fmt(selected.total-selected.invested);
+ $('scenarioRows').innerHTML=results.map(s=>`<tr><td>${s.name}</td><td>${s.r.map((v,i)=>ranges[i]==='eq'?'Equity '+v+'%':ranges[i]==='debt'?'Debt '+v+'%':'Hybrid '+v+'%').join(' · ')}</td><td>${fmt(s.total)}</td></tr>`).join('');
+ $('method').textContent=`Method: monthly compounding approximation; lump sum invested at the beginning; monthly SIP assumed at each month-end. Category return assumptions are weighted by the allocation, and the same illustrative expense assumption is deducted from each category's annual rate. Taxes, exit loads, inflation, changing market returns and timing effects are excluded.`;
+ $('results').classList.remove('hidden');drawChart(results.map(x=>x.total));
+}
+function drawChart(vals){
+ const c=$('chart'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
+ const max=Math.max(...vals)*1.15,base=h-42,barW=130,gap=135,start=95;
+ ctx.strokeStyle='#dce4ee';ctx.lineWidth=1;for(let i=0;i<5;i++){let y=base-(base-25)*i/4;ctx.beginPath();ctx.moveTo(45,y);ctx.lineTo(w-20,y);ctx.stroke()}
+ vals.forEach((v,i)=>{let bh=(base-25)*v/max,x=start+i*(barW+gap),y=base-bh;ctx.fillStyle=['#78a6d9','#2874c7','#15918a'][i];ctx.fillRect(x,y,barW,bh);ctx.fillStyle='#17243a';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.fillText(fmt(v),x+barW/2,Math.max(18,y-9));ctx.font='14px system-ui';ctx.fillText(['Conservative','Moderate','Higher-return'][i],x+barW/2,h-14)});
+}
+$('calculate').addEventListener('click',run);
+$('reset').addEventListener('click',()=>{[['eq',50],['debt',30],['hyb',20],['lump',100000],['sip',2000],['years',10],['er',.5],['risk',3]].forEach(([id,v])=>{$(id).value=v;if($(id+'Num'))$(id+'Num').value=v});$('goal').selectedIndex=0;$('riskLabel').textContent='Moderate';$('yearsLabel').textContent='10 years';$('results').classList.add('hidden');updateAlloc()});
+const answers={q1:'b',q2:'a',q3:'c',q4:'b',q5:'c'};
+const explanations={q1:'Correct: NAV is the per-unit value of net assets.',q2:'Correct: SIP is a regular investment method.',q3:'Correct: debt funds can carry credit and interest-rate risks.',q4:'Correct: diversification can reduce concentration risk, not eliminate all risk.',q5:'Correct: past performance does not guarantee future performance.'};
+$('quizForm').addEventListener('submit',e=>{e.preventDefault();let score=0;Object.entries(answers).forEach(([q,a],i)=>{let chosen=document.querySelector(`input[name="${q}"]:checked`);let ok=chosen&&chosen.value===a;if(ok)score++;$('f'+(i+1)).textContent=ok?explanations[q]:'Not quite. '+explanations[q];$('f'+(i+1)).style.color=ok?'#19734b':'#b54747'});$('score').textContent=`Your score: ${score}/5. ${score===5?'Excellent understanding!':'Review the explanations and try again.'}`});
+$('clearQuiz').addEventListener('click',()=>{$('quizForm').reset();for(let i=1;i<=5;i++)$('f'+i).textContent='';$('score').textContent=''});
+updateAlloc();
+</script>
+</body></html>
